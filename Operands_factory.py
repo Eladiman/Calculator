@@ -1,4 +1,5 @@
 from Arithmetic_unit import *
+from Exceptions import *
 
 
 def Operands(operand):
@@ -25,6 +26,4 @@ def Operands(operand):
     elif operand == '!':
         return Factorial()
     else:
-        #raise custom exception
-        pass
-
+        raise UseOfAnWantedChar()

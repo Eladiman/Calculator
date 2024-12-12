@@ -9,6 +9,8 @@ class Operator:
     def is_unary(self):
         raise NotImplementedError()
 
+    def get_order(self):
+        raise NotImplementedError()
 
 class Add(Operator):
     ORDER = 1
@@ -18,6 +20,9 @@ class Add(Operator):
 
     def is_unary(self):
         return False
+
+    def get_order(self):
+        return 1
 
 
 class Decrease(Operator):
@@ -30,17 +35,23 @@ class Decrease(Operator):
     def is_unary(self):
         return False
 
+    def get_order(self):
+        return 1
+
 
 class Divide(Operator):
     ORDER = 2
 
     def calculate(self, operands):
         if operands[1] == 0:
-            raise DivisionByZeroError("Division by zero Error! please try to insert another equation")
+            raise DivisionByZeroError()
         return operands[0] / operands[1]
 
     def is_unary(self):
         return False
+
+    def get_order(self):
+        return 2
 
 
 class Multiply(Operator):
@@ -52,22 +63,38 @@ class Multiply(Operator):
     def is_unary(self):
         return False
 
+    def get_order(self):
+        return 2
+
 
 class Power(Operator):
     ORDER = 3
 
     def calculate(self, operands):
         if operands[0] == operands[1] == 0:
-            raise NotValidPowerError("Attempted Unlawful Use of Power! please try to insert another equation ")
+            raise NotValidPowerError()
         return operands[0] ** operands[1]
 
     def is_unary(self):
         return False
 
+    def get_order(self):
+        return 3
+
 
 class Modulo(Operator):
-    #to do
-    pass
+    ORDER = 3
+
+    def calculate(self, operands):
+        if operands[1] == 0:
+            raise NotValidModuloError()
+        return operands[0] % operands[1]
+
+    def is_unary(self):
+        return False
+
+    def get_order(self):
+        return 3
 
 
 class Maximum(Operator):
@@ -79,6 +106,9 @@ class Maximum(Operator):
     def is_unary(self):
         return False
 
+    def get_order(self):
+        return 4
+
 
 class Minimum(Operator):
     ORDER = 4
@@ -88,6 +118,9 @@ class Minimum(Operator):
 
     def is_unary(self):
         return False
+
+    def get_order(self):
+        return 4
 
 
 class Avg(Operator):
@@ -99,6 +132,9 @@ class Avg(Operator):
     def is_unary(self):
         return False
 
+    def get_order(self):
+        return 5
+
 
 class Tilde(Operator):
     ORDER = 6
@@ -109,17 +145,25 @@ class Tilde(Operator):
     def is_unary(self):
         return True
 
+    def get_order(self):
+        return 6
+
 
 class Factorial(Operator):
     ORDER = 6
 
     def calculate(self, operands):
-        if operands[0] < 0 or isinstance(operands[0], float) :
-            raise NotValidFactorialNumberError("Attempted Unlawful Use of Factorial! please try to insert another equation ")
+        check_num = operands[0]
+        if operands[0] < 0 or not check_num.is_integer():
+            raise NotValidFactorialNumberError()
         result = 1
-        for index in range(2, operands[0] + 1):
+        num = int(operands[0])
+        for index in range(2, num + 1):
             result *= index
         return result
 
     def is_unary(self):
         return True
+
+    def get_order(self):
+        return 6
