@@ -12,6 +12,7 @@ class Operator:
     def get_order(self):
         raise NotImplementedError()
 
+
 class Add(Operator):
     ORDER = 1
 

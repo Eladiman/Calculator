@@ -33,4 +33,7 @@ def evaluate(string: list):
                 first_operand = float(result.pop())
                 value = operator.calculate([first_operand, second_operand])
                 result.push(value)
-    return result.pop()
+    last = result.pop()
+    if not result.is_empty():
+        raise NotValidExpressionError("Equation not solvable! there is a missing operator")
+    return last
