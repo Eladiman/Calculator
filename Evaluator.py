@@ -26,7 +26,7 @@ def evaluate(string: list):
             operator = temp
             if isinstance(operator, Unary):
                 if not is_float(result.top()):
-                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
+                    raise NotValidExpressionError(f"after{operator} can't come {type(result.top()).__name__}.")
                 first_operand = float(result.pop())
                 try:
                     value = operator.calculate([first_operand])
@@ -39,12 +39,12 @@ def evaluate(string: list):
                 result.push(value)
             else:
                 if not is_float(result.top()):
-                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
+                    raise NotValidExpressionError(f"after{type(operator).__name__} can't come {type(result.top()).__name__}.")
                 second_operand = float(result.pop())
                 if result.is_empty():
-                    raise NotValidExpressionError(f"Missing Operand {operator, second_operand} can't be evaluate")
+                    raise NotValidExpressionError(f"Missing Operand {type(operator).__name__, second_operand} can't be evaluate")
                 if not is_float(result.top()):
-                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
+                    raise NotValidExpressionError(f"after{type(operator).__name__} can't come {type(result.top()).__name__}.")
                 first_operand = float(result.pop())
                 try:
                     value = operator.calculate([first_operand, second_operand])

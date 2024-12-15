@@ -16,18 +16,17 @@ def check_characters_validity(string: str):
 def basic_expression_check(string: str):
     if string.__len__() == 0:
         raise NotValidExpressionError("empty equation!")
-    if not string[0].isdecimal() and string[0] != '(' and string[0] != '-' and string[0] != '~':
-        raise NotValidExpressionError(f"equation cant start with from {string[0]}! ")
+    if not string[0].isdecimal() and string[0] != '(' and string[0] != '-' and string[0] != '~' and string[0] != '.':
+        raise NotValidExpressionError(f"equation can't start with {string[0]} ")
     last_char = string[string.__len__() - 1]
     if not last_char.isdecimal() and last_char != ')' and last_char != '!' and last_char != '#':
-        raise NotValidExpressionError(f"equation cant end with from {last_char}! ")
+        raise NotValidExpressionError(f"equation can't end with {last_char} ")
 
 
 def tilde_check(expression: list):
     index = 0
-    current_symb = expression[index]
-    tilde_flag = False
     while index != expression.__len__():
+        current_symb = expression[index]
         if current_symb == '~':
             if index != 0 and is_float(expression[index - 1]):
                 raise NotValidTildeError("Attempted Unlawful Use of ~ : number before ~.")
@@ -43,7 +42,7 @@ def tilde_check(expression: list):
         index += 1
 
 
-def Parentheses_check(expression: list):
+def parentheses_check(expression: list):
     openers_stack = Stack()
     index = 0
     while index != expression.__len__():

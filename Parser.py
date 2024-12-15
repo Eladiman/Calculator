@@ -3,7 +3,7 @@ from Evaluator import is_float
 from Operands_factory import *
 from Exceptions import *
 from Validation import *
-from Arithmetic_unit import UnaryMinus,Decrease,SignMinus
+from Arithmetic_unit import UnaryMinus, Decrease, SignMinus
 
 
 def operator_grater(operator1, operator2):
@@ -31,14 +31,15 @@ def minus_parse(string: list):
                 while string[index] == '-':
                     string[index] = SignMinus()
                     index += 1
-                if string[index] != '(' and not is_float(string[index]):
+                if string[index] != '(' and not is_float(string[index]) and (
+                        isinstance(string[index - 1], Decrease) and string[index] != '~'):
                     raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
             else:
                 while string[index] == '-':
                     string[index] = SignMinus()
                     index += 1
                 if string[index] != '(' and not is_float(string[index]):
-                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
+                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after SignMinus")
         else:
             index += 1
     return string
@@ -49,14 +50,14 @@ def parse(string: list) -> list:
     operator_stack = Stack()
     while not len(string) == 0:
         symb = string.pop(0)
-        if not isinstance(symb,Operator) and is_float(symb):
+        if not isinstance(symb, Operator) and is_float(symb):
             str_post.append(symb)
         else:
-            if not isinstance(symb,Operator) and symb == ')':
+            if not isinstance(symb, Operator) and symb == ')':
                 while not operator_stack.is_empty() and isinstance(operator_stack.top(), Operator):
                     str_post.append(operator_stack.pop())
                 operator_stack.pop()
-            elif not isinstance(symb,Operator) and symb == '(':
+            elif not isinstance(symb, Operator) and symb == '(':
                 operator_stack.push(symb)
             else:
                 operator = symb
