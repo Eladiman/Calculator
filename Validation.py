@@ -32,7 +32,7 @@ def tilde_check(expression: list):
                 raise NotValidTildeError("Attempted Unlawful Use of ~ : number before ~.")
             elif expression[index + 1] == '-':
                 index += 1
-                while index != expression.__len__() and not is_float(expression[index]):
+                while index != expression.__len__() and not is_float(expression[index]) and expression[index] != '(':
                     if expression[index] != '-':
                         raise NotValidTildeError()
                     index += 1
