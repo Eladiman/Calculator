@@ -26,12 +26,25 @@ def evaluate(string: list):
             operator = Operands(temp)
             if isinstance(operator, Unary):
                 first_operand = float(result.pop())
-                value = operator.calculate([first_operand])
+                try:
+                    value = operator.calculate([first_operand])
+                    if value != value or str(value) == "inf":
+                        raise OverflowError()
+                except OverflowError:
+                    print(f"{first_operand} and {type(operator).__name__} creates a very big number that can't be calculated!")
+                    raise OverflowError()
                 result.push(value)
             else:
                 second_operand = float(result.pop())
                 first_operand = float(result.pop())
-                value = operator.calculate([first_operand, second_operand])
+                try:
+                    value = operator.calculate([first_operand, second_operand])
+                    if value != value or str(value) == "inf":
+                        raise OverflowError()
+                except OverflowError:
+                    print(
+                        f"{first_operand, type(operator).__name__, second_operand} creates a very big number that can't be calculated!")
+                    raise OverflowError()
                 result.push(value)
     last = result.pop()
     if not result.is_empty():

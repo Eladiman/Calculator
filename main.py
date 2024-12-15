@@ -17,7 +17,8 @@ if __name__ == '__main__':
     #print(float(evaluate([5,5,'!','+'])))
     try:
         #print(evaluate(list("238-4*+")))
-        print(minus_parse(list("")))
+        #print(minus_parse(list("")))
+        print(evaluate(['3','2','-20000','^','/']))
     except NotValidFactorialNumberError as e:
         print(e)
     except DivisionByZeroError as e:
@@ -32,3 +33,7 @@ if __name__ == '__main__':
         print(e)
     except NotValidMinusError as e:
         print(e)
+    except NotValidExpressionError as e:
+        print(e)
+    except OverflowError:
+        pass

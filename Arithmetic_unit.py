@@ -152,7 +152,7 @@ class Factorial(Unary):
         check_num = operands[0]
         if operands[0] < 0 or not check_num.is_integer():
             raise NotValidFactorialNumberError()
-        result = 1
+        result = 1.0
         num = int(operands[0])
         for index in range(2, num + 1):
             result *= index
