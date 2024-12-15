@@ -16,7 +16,8 @@ if __name__ == '__main__':
     # print(float(5.2-5.3))
     #print(float(evaluate([5,5,'!','+'])))
     try:
-        print(evaluate(list("238-4*+")))
+        #print(evaluate(list("238-4*+")))
+        print(minus_parse(list("")))
     except NotValidFactorialNumberError as e:
         print(e)
     except DivisionByZeroError as e:
@@ -28,4 +29,6 @@ if __name__ == '__main__':
     except UseOfAnWantedChar as e:
         print(e)
     except NotValidParenthesesError as e:
+        print(e)
+    except NotValidMinusError as e:
         print(e)

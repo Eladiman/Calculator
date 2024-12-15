@@ -26,15 +26,27 @@ def minus_parse(string: list):
         if string[index] == '-':
             if index == 0 or string[index - 1] == '(':
                 while string[index] == '-':
-                    string[index] = UnaryMinus()
+                    string[index] = 'UM'
                     index += 1
                 if string[index] != '(' and not is_float(string[index]):
                     raise NotValidMinusError(f"Error! Attempted of use {string[index]} after Unary Minus")
-            elif string[index -1] == ')' or string[index -1] == '!' or string[index -1] == '#':
-                pass
-
+            elif string[index - 1] == ')' or is_float(string[index-1]) or (isinstance(Operands(string[index - 1]), Unary) and not Operands(string[index - 1]).is_left()):
+                    string[index] = 'D'
+                    index += 1
+                    while string[index] == '-':
+                        string[index] = 'SM'
+                        index += 1
+                    if string[index] != '(' and not is_float(string[index]):
+                        raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
+            else:
+                while string[index] == '-':
+                    string[index] = 'SM'
+                    index += 1
+                if string[index] != '(' and not is_float(string[index]):
+                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
         else:
             index += 1
+    return string
 
 
 def parse(string: list) -> list:
