@@ -18,7 +18,7 @@ if __name__ == '__main__':
     try:
         #print(evaluate(list("238-4*+")))
         #print(minus_parse(list("")))
-        print(evaluate(['3','2','-20000','^','/']))
+        print(minus_parse(['5','-','-','-','-','-','(','-','3',')']))
     except NotValidFactorialNumberError as e:
         print(e)
     except DivisionByZeroError as e:

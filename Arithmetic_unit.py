@@ -6,9 +6,6 @@ class Operator:
     def calculate(self, operands):
         raise NotImplementedError()
 
-    def is_unary(self):
-        raise NotImplementedError()
-
     def get_order(self):
         raise NotImplementedError()
 

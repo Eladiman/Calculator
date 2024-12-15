@@ -7,11 +7,11 @@ from Arithmetic_unit import UnaryMinus
 
 
 def operator_grater(operator1, operator2):
-    if operator1 == '(' or operator2 == '(':
+    if not isinstance(operator1, Operator) or (
+            isinstance(operator1, UnaryMinus) and isinstance(operator2, UnaryMinus)) \
+            or (isinstance(operator1, SignMinus) and isinstance(operator2, SignMinus)):  # in case of operator1 is (
         return False
-    op1 = Operands(operator1)
-    op2 = Operands(operator2)
-    return op1.get_order() >= op2.get_order()
+    return operator1.get_order() >= operator2.get_order()
 
 
 def final_parse(string: str) -> list:
@@ -30,14 +30,15 @@ def minus_parse(string: list):
                     index += 1
                 if string[index] != '(' and not is_float(string[index]):
                     raise NotValidMinusError(f"Error! Attempted of use {string[index]} after Unary Minus")
-            elif string[index - 1] == ')' or is_float(string[index-1]) or (isinstance(Operands(string[index - 1]), Unary) and not Operands(string[index - 1]).is_left()):
-                    string[index] = 'D'
+            elif string[index - 1] == ')' or is_float(string[index - 1]) or (
+                    isinstance(Operands(string[index - 1]), Unary) and not Operands(string[index - 1]).is_left()):
+                string[index] = 'D'
+                index += 1
+                while string[index] == '-':
+                    string[index] = 'SM'
                     index += 1
-                    while string[index] == '-':
-                        string[index] = 'SM'
-                        index += 1
-                    if string[index] != '(' and not is_float(string[index]):
-                        raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
+                if string[index] != '(' and not is_float(string[index]):
+                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
             else:
                 while string[index] == '-':
                     string[index] = 'SM'
@@ -51,21 +52,25 @@ def minus_parse(string: list):
 
 def parse(string: list) -> list:
     str_post = []
-    index = 0
-    operand_stack = Stack()
+    operator_stack = Stack()
     while not len(string) == 0:
         symb = string.pop(0)
         if is_float(symb):
             str_post.append(symb)
         else:
             if symb == ')':
-                while not operand_stack.is_empty() and not operand_stack.top() == '(':
-                    str_post.append(operand_stack.pop())
-                operand_stack.pop()
+                while not operator_stack.is_empty() and isinstance(operator_stack.top(), Operator):
+                    str_post.append(operator_stack.pop())
+                operator_stack.pop()
+            elif symb == '(':
+                operator_stack.push(symb)
             else:
-                while not operand_stack.is_empty() and operator_grater(operand_stack.top(), symb):
-                    str_post.append(operand_stack.pop())
-                operand_stack.push(symb)
-    while not operand_stack.is_empty():
-        str_post.append(operand_stack.pop())
+                operator = symb
+                if not isinstance(symb, Operator):
+                    operator = Operands(symb)
+                while not operator_stack.is_empty() and operator_grater(operator_stack.top(), operator):
+                    str_post.append(operator_stack.pop())
+                operator_stack.push(operator)
+    while not operator_stack.is_empty():
+        str_post.append(operator_stack.pop())
     return str_post
