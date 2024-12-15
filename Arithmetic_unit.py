@@ -80,7 +80,9 @@ class Power(Binary):
 
     def calculate(self, operands):
         if operands[0] == operands[1] == 0:
-            raise NotValidPowerError()
+            raise NotValidPowerError("Error : Can't Solve 0^0.")
+        if operands[0] < 0 and not operands[1].is_integer():
+            raise NotValidPowerError("Error : Attempted of sqrt to a negative number.")
         return operands[0] ** operands[1]
 
     def get_order(self):
@@ -92,7 +94,7 @@ class Modulo(Binary):
 
     def calculate(self, operands):
         if operands[1] == 0:
-            raise NotValidModuloError()
+            raise NotValidModuloError(f"Attempted Unlawful Use of modulo! can't solve {operands[0]} % {operands[1]}")
         return operands[0] % operands[1]
 
     def get_order(self):

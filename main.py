@@ -18,7 +18,7 @@ if __name__ == '__main__':
     try:
         #print(evaluate(list("238-4*+")))
         #print(minus_parse(list("")))
-        print(evaluate(parse(['22222222222222222222222222222222222222222','^','2222222222222222222222222222222222222222222222'])))
+        print(evaluate(parse(['-1','%','0'])))
     except NotValidFactorialNumberError as e:
         print(e)
     except DivisionByZeroError as e:
@@ -34,6 +34,10 @@ if __name__ == '__main__':
     except NotValidMinusError as e:
         print(e)
     except NotValidExpressionError as e:
+        print(e)
+    except NotValidTildeError as e:
+        print(e)
+    except NotValidModuloError as e:
         print(e)
     except OverflowError:
         pass
