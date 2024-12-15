@@ -20,22 +20,31 @@ def evaluate(string: list):
     result = Stack()
     while not string.__len__() == 0:
         temp = string.pop(0)
-        if is_float(temp):
+        if not isinstance(temp, Operator) and is_float(temp):
             result.push(temp)
         else:
-            operator = Operands(temp)
+            operator = temp
             if isinstance(operator, Unary):
+                if not is_float(result.top()):
+                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
                 first_operand = float(result.pop())
                 try:
                     value = operator.calculate([first_operand])
                     if value != value or str(value) == "inf":
                         raise OverflowError()
                 except OverflowError:
-                    print(f"{first_operand} and {type(operator).__name__} creates a very big number that can't be calculated!")
+                    print(
+                        f"{first_operand} and {type(operator).__name__} creates a very big number that can't be calculated!")
                     raise OverflowError()
                 result.push(value)
             else:
+                if not is_float(result.top()):
+                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
                 second_operand = float(result.pop())
+                if result.is_empty():
+                    raise NotValidExpressionError(f"Missing Operand {operator, second_operand} can't be evaluate")
+                if not is_float(result.top()):
+                    raise NotValidExpressionError(f"after{operator} can't come {result.top()}.")
                 first_operand = float(result.pop())
                 try:
                     value = operator.calculate([first_operand, second_operand])

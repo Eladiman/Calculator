@@ -151,6 +151,8 @@ class Factorial(Unary):
             raise NotValidFactorialNumberError()
         result = 1.0
         num = int(operands[0])
+        if num > 170:
+            raise OverflowError()
         for index in range(2, num + 1):
             result *= index
         return result
@@ -163,7 +165,7 @@ class Factorial(Unary):
 
 
 class SignMinus(Unary):
-    ORDER = 10
+    ORDER = 69
 
     def calculate(self, operands):
         return - operands[0]
