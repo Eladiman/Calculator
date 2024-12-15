@@ -13,34 +13,37 @@ class Operator:
         raise NotImplementedError()
 
 
-class Add(Operator):
+class Binary(Operator):
+    pass
+
+
+class Unary(Operator):
+    def is_left(self):
+        raise NotImplementedError()
+
+
+class Add(Binary):
     ORDER = 1
 
     def calculate(self, operands):
         return operands[0] + operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 1
 
 
-class Decrease(Operator):
+class Decrease(Binary):
     ORDER = 1
 
     #minus onary
     def calculate(self, operands):
         return operands[0] - operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 1
 
 
-class Divide(Operator):
+class Divide(Binary):
     ORDER = 2
 
     def calculate(self, operands):
@@ -48,27 +51,34 @@ class Divide(Operator):
             raise DivisionByZeroError()
         return operands[0] / operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 2
 
 
-class Multiply(Operator):
+class Multiply(Binary):
     ORDER = 2
 
     def calculate(self, operands):
         return operands[0] * operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 2
 
 
-class Power(Operator):
+class UnaryMinus(Unary):
+    ORDER = 2.5
+
+    def calculate(self, operands):
+        return - operands[0]
+
+    def get_order(self):
+        return 2.5
+
+    def is_left(self):
+        return True
+
+
+class Power(Binary):
     ORDER = 3
 
     def calculate(self, operands):
@@ -76,14 +86,11 @@ class Power(Operator):
             raise NotValidPowerError()
         return operands[0] ** operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 3
 
 
-class Modulo(Operator):
+class Modulo(Binary):
     ORDER = 3
 
     def calculate(self, operands):
@@ -91,66 +98,54 @@ class Modulo(Operator):
             raise NotValidModuloError()
         return operands[0] % operands[1]
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 3
 
 
-class Maximum(Operator):
+class Maximum(Binary):
     ORDER = 4
 
     def calculate(self, operands):
         return max(operands)
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 4
 
 
-class Minimum(Operator):
+class Minimum(Binary):
     ORDER = 4
 
     def calculate(self, operands):
         return min(operands)
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 4
 
 
-class Avg(Operator):
+class Avg(Binary):
     ORDER = 5
 
     def calculate(self, operands):
         return (operands[0] + operands[1]) / 2
 
-    def is_unary(self):
-        return False
-
     def get_order(self):
         return 5
 
 
-class Tilde(Operator):
+class Tilde(Unary):
     ORDER = 6
 
     def calculate(self, operands):
         return - operands[0]
 
-    def is_unary(self):
+    def is_left(self):
         return True
 
     def get_order(self):
         return 6
 
 
-class Factorial(Operator):
+class Factorial(Unary):
     ORDER = 6
 
     def calculate(self, operands):
@@ -163,8 +158,21 @@ class Factorial(Operator):
             result *= index
         return result
 
-    def is_unary(self):
-        return True
+    def is_left(self):
+        return False
 
     def get_order(self):
         return 6
+
+
+class SignMinus(Unary):
+    ORDER = 10
+
+    def calculate(self, operands):
+        return - operands[0]
+
+    def is_left(self):
+        return True
+
+    def get_order(self):
+        return 10

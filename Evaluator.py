@@ -24,7 +24,7 @@ def evaluate(string: list):
             result.push(temp)
         else:
             operator = Operands(temp)
-            if operator.is_unary():
+            if isinstance(operator, Unary):
                 first_operand = float(result.pop())
                 value = operator.calculate([first_operand])
                 result.push(value)

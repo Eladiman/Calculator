@@ -3,6 +3,7 @@ from Evaluator import is_float
 from Operands_factory import *
 from Exceptions import *
 from Validation import *
+from Arithmetic_unit import UnaryMinus
 
 
 def operator_grater(operator1, operator2):
@@ -13,11 +14,27 @@ def operator_grater(operator1, operator2):
     return op1.get_order() >= op2.get_order()
 
 
-
 def final_parse(string: str) -> list:
     string = string.replace(" ", "")
     string = string.replace("   ", "")
     check_characters_validity(string)
+
+
+def minus_parse(string: list):
+    index = 0
+    while not index == len(string):
+        if string[index] == '-':
+            if index == 0 or string[index - 1] == '(':
+                while string[index] == '-':
+                    string[index] = UnaryMinus()
+                    index += 1
+                if string[index] != '(' and not is_float(string[index]):
+                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after Unary Minus")
+            elif string[index -1] == ')' or string[index -1] == '!' or string[index -1] == '#':
+                pass
+
+        else:
+            index += 1
 
 
 def parse(string: list) -> list:

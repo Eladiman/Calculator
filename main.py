@@ -3,6 +3,7 @@ from Evaluator import evaluate
 from Exceptions import *
 from Arithmetic_unit import *
 from Validation import *
+from Parser import *
 
 
 def print_str(string):
@@ -15,7 +16,7 @@ if __name__ == '__main__':
     # print(float(5.2-5.3))
     #print(float(evaluate([5,5,'!','+'])))
     try:
-        print(Parentheses_check(list("(5+((-2))))")))
+        print(evaluate(list("238-4*+")))
     except NotValidFactorialNumberError as e:
         print(e)
     except DivisionByZeroError as e:

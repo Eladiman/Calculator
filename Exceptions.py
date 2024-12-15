@@ -51,3 +51,9 @@ class NotValidExpressionError(Exception):
     def __init__(self, message="Not Valid Expression! please try to insert another equation "):
         # Call the base class constructor with the parameters it needs
         super().__init__(message)
+
+
+class NotValidMinusError(Exception):
+    def __init__(self, message="Attempted Unlawful Use of Minus ! please try to insert another equation "):
+        # Call the base class constructor with the parameters it needs
+        super().__init__(message)
