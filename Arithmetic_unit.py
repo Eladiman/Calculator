@@ -166,6 +166,23 @@ class Factorial(Unary):
         return 6
 
 
+class DigitSum(Unary):
+    ORDER = 6
+
+    def calculate(self, operands):
+        check_num = operands[0]
+        if operands[0] < 0:
+            raise NotValidDigitSumError
+
+        return sum(int(digit) for digit in str(operands[0]) if digit.isdecimal())
+
+    def is_left(self):
+        return False
+
+    def get_order(self):
+        return 6
+
+
 class SignMinus(Unary):
     ORDER = 69
 

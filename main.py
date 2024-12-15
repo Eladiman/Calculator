@@ -37,5 +37,7 @@ if __name__ == '__main__':
             print(e)
         except NotValidModuloError as e:
             print(e)
+        except NotValidDigitSumError as e:
+            print(e)
         except OverflowError:
             pass

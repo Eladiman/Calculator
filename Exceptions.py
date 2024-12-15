@@ -57,3 +57,9 @@ class NotValidMinusError(Exception):
     def __init__(self, message="Attempted Unlawful Use of Minus ! please try to insert another equation "):
         # Call the base class constructor with the parameters it needs
         super().__init__(message)
+
+
+class NotValidDigitSumError(Exception):
+    def __init__(self, message="Attempted Unlawful Use of #: with negative number ,please try to insert another equation "):
+        # Call the base class constructor with the parameters it needs
+        super().__init__(message)

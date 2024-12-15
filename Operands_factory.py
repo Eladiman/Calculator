@@ -25,5 +25,7 @@ def Operands(operand):
         return Tilde()
     elif operand == '!':
         return Factorial()
+    elif operand == '#':
+        return DigitSum()
     else:
         raise UseOfAnWantedChar()
