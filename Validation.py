@@ -23,6 +23,19 @@ def basic_expression_check(string: str):
         raise NotValidExpressionError(f"equation can't end with {last_char} ")
 
 
+def right_unary_check(expression: list):
+    index = 0
+    while index != len(expression):
+        if not is_float(expression[index]) and expression[index] != '(' and expression[index] != ')':
+            operator = Operands(expression[index])
+            if isinstance(operator, Unary) and not operator.is_left() and not is_float(expression[index - 1]):
+                if expression[index - 1] != '(' and expression[index - 1] != ')':
+                    before_operator = Operands(expression[index - 1])
+                    if not (isinstance(operator, Unary) and not operator.is_left()):
+                        raise NotValidRightUnaryError(f"before {expression[index]} can't come {expression[index - 1]}")
+        index += 1
+
+
 def tilde_check(expression: list):
     index = 0
     while index != expression.__len__():

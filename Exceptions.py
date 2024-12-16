@@ -60,6 +60,14 @@ class NotValidMinusError(Exception):
 
 
 class NotValidDigitSumError(Exception):
-    def __init__(self, message="Attempted Unlawful Use of #: with negative number ,please try to insert another equation "):
+    def __init__(self,
+                 message="Attempted Unlawful Use of #: with negative number ,please try to insert another equation "):
+        # Call the base class constructor with the parameters it needs
+        super().__init__(message)
+
+
+class NotValidRightUnaryError(Exception):
+    def __init__(self,
+                 message="Not Valid Expression"):
         # Call the base class constructor with the parameters it needs
         super().__init__(message)

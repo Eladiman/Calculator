@@ -39,5 +39,8 @@ if __name__ == '__main__':
             print(e)
         except NotValidDigitSumError as e:
             print(e)
+        except NotValidRightUnaryError as e:
+            print(e)
         except OverflowError:
             pass
+
