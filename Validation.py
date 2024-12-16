@@ -36,7 +36,7 @@ def tilde_check(expression: list):
                     if expression[index] != '-':
                         raise NotValidTildeError()
                     index += 1
-            elif not is_float(expression[index + 1]):
+            elif not is_float(expression[index + 1]) and expression[index + 1] != '(':
                 raise NotValidTildeError(f"{expression[index + 1]} can't be after ~")
 
         index += 1
@@ -47,12 +47,15 @@ def parentheses_check(expression: list):
     index = 0
     while index != expression.__len__():
         if expression[index] == '(':
-            if expression[index + 1] != '-' and expression[index + 1] != '~' and expression[index + 1] != '(' and not is_float(expression[index + 1]):
+            if expression[index + 1] != '-' and expression[index + 1] != '~' and expression[
+                index + 1] != '(' and not is_float(expression[index + 1]):
                 raise NotValidParenthesesError(f"after ( can't come {expression[index + 1]}")
             openers_stack.push('(')
         elif expression[index] == ')':
-            if openers_stack.is_empty(): raise NotValidParenthesesError("There is ) without (")
-            elif expression[index-1] != '!' and expression[index - 1] != '#' and expression[index - 1] != ')' and not is_float(expression[index - 1]):
+            if openers_stack.is_empty():
+                raise NotValidParenthesesError("There is ) without (")
+            elif expression[index - 1] != '!' and expression[index - 1] != '#' and expression[
+                index - 1] != ')' and not is_float(expression[index - 1]):
                 raise NotValidParenthesesError(f"before ) can't come {expression[index - 1]}")
             openers_stack.pop()
         index += 1
@@ -82,4 +85,3 @@ def combine_numbers_to_float(string: str):
             raise NotValidFloatError()
         res.append(temp)
     return res
-
