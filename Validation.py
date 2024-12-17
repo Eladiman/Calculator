@@ -31,7 +31,7 @@ def right_unary_check(expression: list):
             if isinstance(operator, Unary) and not operator.is_left() and not is_float(expression[index - 1]):
                 if expression[index - 1] != '(' and expression[index - 1] != ')':
                     before_operator = Operands(expression[index - 1])
-                    if not (isinstance(operator, Unary) and not operator.is_left()):
+                    if not (isinstance(before_operator, Unary) and not operator.is_left()):
                         raise NotValidRightUnaryError(f"before {expression[index]} can't come {expression[index - 1]}")
         index += 1
 

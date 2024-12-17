@@ -1,4 +1,5 @@
 from Exceptions import *
+from math import pow
 
 
 class Operator:
@@ -45,7 +46,7 @@ class Divide(Binary):
 
     def calculate(self, operands):
         if operands[1] == 0:
-            raise DivisionByZeroError()
+            raise ZeroDivisionError("Attempted 0 deviation! please enter another equation")
         return operands[0] / operands[1]
 
     def get_order(self):
@@ -81,9 +82,13 @@ class Power(Binary):
     def calculate(self, operands):
         if operands[0] == operands[1] == 0:
             raise NotValidPowerError("Error : Can't Solve 0^0.")
-        if operands[0] < 0 and not operands[1].is_integer():
-            raise NotValidPowerError("Error : Attempted of sqrt to a negative number.")
-        return operands[0] ** operands[1]
+        operand1 = operands[0]
+        operand2 = operands[1]
+        try:
+            pow(operand1, operand2)
+        except ValueError:
+            raise NotValidPowerError("Error: attempted of sqrt on a negative number. please enter another equation")
+        return pow(operand1, operand2)
 
     def get_order(self):
         return 3
@@ -151,9 +156,9 @@ class Factorial(Unary):
         check_num = operands[0]
         if operands[0] < 0 or not check_num.is_integer():
             raise NotValidFactorialNumberError()
-        result = 1.0
+        result = 1
         num = int(operands[0])
-        if num > 170:
+        if num > 10000:
             raise OverflowError()
         for index in range(2, num + 1):
             result *= index

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     while not end:
         try:
             expression = input("Please Enter your equation. write STOP to finish : ")
-            if expression == "STOP":
+            if expression.upper() == "STOP":
                 end = True
             else:
                 calculate_equation(expression)
@@ -40,6 +40,8 @@ if __name__ == '__main__':
         except NotValidDigitSumError as e:
             print(e)
         except NotValidRightUnaryError as e:
+            print(e)
+        except ZeroDivisionError as e:
             print(e)
         except OverflowError:
             pass

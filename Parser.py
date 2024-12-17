@@ -34,6 +34,8 @@ def minus_parse(string: list):
                 if string[index] != '(' and not is_float(string[index]) and (
                         isinstance(string[index - 1], Decrease) and string[index] != '~'):
                     raise NotValidMinusError(f"Error! Attempted of use {string[index]} after -")
+                elif string[index] != '(' and not is_float(string[index]) and not isinstance(string[index - 1], Decrease):
+                    raise NotValidMinusError(f"Error! Attempted of use {string[index]} after SignMinus")
             else:
                 while string[index] == '-':
                     string[index] = SignMinus()
