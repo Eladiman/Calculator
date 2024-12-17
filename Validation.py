@@ -50,7 +50,7 @@ def tilde_check(expression: list):
                         raise NotValidTildeError()
                     index += 1
             elif not is_float(expression[index + 1]) and expression[index + 1] != '(':
-                raise NotValidTildeError(f"{expression[index + 1]} can't be after ~")
+                raise NotValidTildeError(f"Attempted Unlawful Use of ~ : {expression[index + 1]} can't be after ~")
 
         index += 1
 
@@ -62,18 +62,18 @@ def parentheses_check(expression: list):
         if expression[index] == '(':
             if expression[index + 1] != '-' and expression[index + 1] != '~' and expression[
                 index + 1] != '(' and not is_float(expression[index + 1]):
-                raise NotValidParenthesesError(f"after ( can't come {expression[index + 1]}")
+                raise NotValidParenthesesError(f"Attempted Unlawful Use of parentheses! : after ( can't come {expression[index + 1]}")
             openers_stack.push('(')
         elif expression[index] == ')':
             if openers_stack.is_empty():
-                raise NotValidParenthesesError("There is ) without (")
+                raise NotValidParenthesesError("Attempted Unlawful Use of parentheses! : There is an: ( without: )")
             elif expression[index - 1] != '!' and expression[index - 1] != '#' and expression[
                 index - 1] != ')' and not is_float(expression[index - 1]):
-                raise NotValidParenthesesError(f"before ) can't come {expression[index - 1]}")
+                raise NotValidParenthesesError(f"Attempted Unlawful Use of parentheses! : before ) can't come {expression[index - 1]}")
             openers_stack.pop()
         index += 1
     if not openers_stack.is_empty():
-        raise NotValidParenthesesError("Error: There is an: ( without: )")
+        raise NotValidParenthesesError("Attempted Unlawful Use of parentheses! : There is an: ( without: )")
 
 
 def combine_numbers_to_float(string: str):

@@ -84,6 +84,8 @@ class Power(Binary):
             raise NotValidPowerError("Error : Can't Solve 0^0.")
         operand1 = operands[0]
         operand2 = operands[1]
+        if operand1 == 0 and operand2 < 0:
+            raise ZeroDivisionError("Attempted 0 deviation! please enter another equation")
         try:
             pow(operand1, operand2)
         except ValueError:
@@ -154,7 +156,9 @@ class Factorial(Unary):
 
     def calculate(self, operands):
         check_num = operands[0]
-        if operands[0] < 0 or not check_num.is_integer():
+        if operands[0] < 0:
+            raise NotValidFactorialNumberError("Attempted Factorial on a negative number! please try to insert another equation")
+        elif operands[0] < 0 or not check_num.is_integer():
             raise NotValidFactorialNumberError()
         result = 1
         num = int(operands[0])
@@ -177,7 +181,7 @@ class DigitSum(Unary):
     def calculate(self, operands):
         check_num = operands[0]
         if operands[0] < 0:
-            raise NotValidDigitSumError
+            raise NotValidDigitSumError()
 
         return sum(int(digit) for digit in str(operands[0]) if digit.isdecimal())
 
