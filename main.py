@@ -18,9 +18,9 @@ if __name__ == '__main__':
             if expression.upper() == "STOP":
                 end = True
             else:
-                #calculate_equation(expression)
+                calculate_equation(expression)
                 #print(combine_numbers_to_float(expression))
-                print(parse((combine_numbers_to_float(expression))))
+                #print(parse((combine_numbers_to_float(expression))))
         except NotValidFactorialNumberError as e:
             print(e)
         except DivisionByZeroError as e:
@@ -46,6 +46,8 @@ if __name__ == '__main__':
         except NotValidRightUnaryError as e:
             print(e)
         except ZeroDivisionError as e:
+            print(e)
+        except KeyboardInterrupt as e:
             print(e)
         except OverflowError:
             pass

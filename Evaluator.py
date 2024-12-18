@@ -28,6 +28,7 @@ def evaluate(string: list):
                 if not is_float(result.top()):
                     raise NotValidExpressionError(f"after{operator} can't come {type(result.top()).__name__}.")
                 first_operand = float(result.pop())
+                #first_operand = result.pop()
                 try:
                     value = operator.calculate([first_operand])
                     if value != value or str(value) == "inf":
@@ -41,11 +42,13 @@ def evaluate(string: list):
                 if not is_float(result.top()):
                     raise NotValidExpressionError(f"after{type(operator).__name__} can't come {type(result.top()).__name__}.")
                 second_operand = float(result.pop())
+                #second_operand = result.pop()
                 if result.is_empty():
                     raise NotValidExpressionError(f"There is a Missing Operand! please enter another equation")
                 if not is_float(result.top()):
                     raise NotValidExpressionError(f"after{type(operator).__name__} can't come {type(result.top()).__name__}.")
                 first_operand = float(result.pop())
+                #first_operand = result.pop()
                 try:
                     value = operator.calculate([first_operand, second_operand])
                     if value != value or str(value) == "inf":

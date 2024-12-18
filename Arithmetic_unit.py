@@ -24,7 +24,7 @@ class Add(Binary):
     ORDER = 1
 
     def calculate(self, operands):
-        return operands[0] + operands[1]
+        return float(operands[0]) + float(operands[1])
 
     def get_order(self):
         return 1
@@ -82,8 +82,8 @@ class Power(Binary):
     def calculate(self, operands):
         if operands[0] == operands[1] == 0:
             raise NotValidPowerError("Error : Can't Solve 0^0.")
-        operand1 = operands[0]
-        operand2 = operands[1]
+        operand1 = float(operands[0])
+        operand2 = float(operands[1])
         if operand1 == 0 and operand2 < 0:
             raise ZeroDivisionError("Attempted 0 deviation! please enter another equation")
         try:
@@ -156,14 +156,13 @@ class Factorial(Unary):
 
     def calculate(self, operands):
         check_num = operands[0]
-        if operands[0] < 0:
-            raise NotValidFactorialNumberError("Attempted Factorial on a negative number! please try to insert another equation")
-        elif operands[0] < 0 or not check_num.is_integer():
+        if check_num < 0:
+            raise NotValidFactorialNumberError(
+                "Attempted Factorial on a negative number! please try to insert another equation")
+        elif not check_num.is_integer():
             raise NotValidFactorialNumberError()
-        result = 1
+        result = 1.0
         num = int(operands[0])
-        if num > 10000:
-            raise OverflowError()
         for index in range(2, num + 1):
             result *= index
         return result
@@ -180,8 +179,10 @@ class DigitSum(Unary):
 
     def calculate(self, operands):
         check_num = operands[0]
-        if operands[0] < 0:
+        if check_num < 0:
             raise NotValidDigitSumError()
+        if str(check_num).__contains__('e'):
+            raise NotValidDigitSumError(f"Can't solve the equation for # and {check_num}. number is too big.")
 
         return sum(int(digit) for digit in str(operands[0]) if digit.isdecimal())
 
