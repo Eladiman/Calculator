@@ -10,8 +10,7 @@ if __name__ == '__main__':
             if expression.upper() == "STOP":
                 end = True
             else:
-                result = calculate_equation(expression)
-                print(float(result))
+                print(calculate_equation(expression))
         except NotValidFactorialNumberError as e:
             print(e)
         except NotValidPowerError as e:
