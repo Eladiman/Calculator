@@ -1,14 +1,6 @@
 from CalculateEquation import calculate_equation
 from Exceptions import *
-from Validation import combine_numbers_to_float
 from Parser import *
-
-
-def print_str(string):
-    string.pop()
-    str.__sizeof__()
-    print(string)
-
 
 if __name__ == '__main__':
     end = False
@@ -18,12 +10,9 @@ if __name__ == '__main__':
             if expression.upper() == "STOP":
                 end = True
             else:
-                calculate_equation(expression)
-                #print(combine_numbers_to_float(expression))
-                #print(parse((combine_numbers_to_float(expression))))
+                result = calculate_equation(expression)
+                print(float(result))
         except NotValidFactorialNumberError as e:
-            print(e)
-        except DivisionByZeroError as e:
             print(e)
         except NotValidPowerError as e:
             print(e)
@@ -51,4 +40,3 @@ if __name__ == '__main__':
             print(e)
         except OverflowError:
             pass
-

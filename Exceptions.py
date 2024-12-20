@@ -18,7 +18,8 @@ class NotValidPowerError(Exception):
 
 class UseOfAnWantedChar(Exception):
     def __init__(self,
-                 message="There is a letter or a non operator char in your equasion! please try to insert another equation "):
+                 message="There is a letter or a non operator char in your equation! "
+                         "please try to insert another equation "):
         # Call the base class constructor with the parameters it needs
         super().__init__(message)
 

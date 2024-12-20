@@ -33,7 +33,6 @@ class Add(Binary):
 class Decrease(Binary):
     ORDER = 1
 
-    #minus onary
     def calculate(self, operands):
         return operands[0] - operands[1]
 
@@ -89,7 +88,8 @@ class Power(Binary):
         try:
             pow(operand1, operand2)
         except ValueError:
-            raise NotValidPowerError("Error: attempted of sqrt on a negative number. please enter another equation")
+            raise NotValidPowerError("Error: attempted of sqrt on a negative number."
+                                     " please enter another equation")
         return pow(operand1, operand2)
 
     def get_order(self):
@@ -101,7 +101,8 @@ class Modulo(Binary):
 
     def calculate(self, operands):
         if operands[1] == 0:
-            raise NotValidModuloError(f"Attempted Unlawful Use of modulo! can't solve {operands[0]} % {operands[1]}")
+            raise NotValidModuloError(f"Attempted Unlawful Use of modulo! "
+                                      f"can't solve {operands[0]} % {operands[1]}")
         return operands[0] % operands[1]
 
     def get_order(self):
