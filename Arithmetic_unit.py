@@ -165,7 +165,12 @@ class Factorial(Unary):
         result = 1.0
         num = int(operands[0])
         for index in range(2, num + 1):
-            result *= index
+            try:
+                result *= index
+                if str(result) == "inf":
+                    raise OverflowError
+            except OverflowError:
+                raise OverflowError
         return result
 
     def is_left(self):
@@ -183,7 +188,9 @@ class DigitSum(Unary):
         if check_num < 0:
             raise NotValidDigitSumError()
         if str(check_num).__contains__('e'):
-            raise NotValidDigitSumError(f"Can't solve the equation for # and {check_num}. number is too big.")
+            if str(check_num).__contains__('+'):
+                raise NotValidDigitSumError(f"Can't solve the equation for # and {check_num}. number is too big.")
+            raise NotValidDigitSumError(f"Can't solve the equation for # and {check_num}. number is too small.")
 
         return sum(int(digit) for digit in str(operands[0]) if digit.isdecimal())
 
@@ -204,4 +211,4 @@ class SignMinus(Unary):
         return True
 
     def get_order(self):
-        return 10
+        return 69
