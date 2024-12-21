@@ -1,8 +1,4 @@
-from Stack import *
-from Evaluator import is_float
-from Operands_factory import *
-from Exceptions import *
-from Validation import *
+from validation import *
 from Arithmetic_unit import UnaryMinus, Decrease, SignMinus
 
 
@@ -25,7 +21,7 @@ def minus_parse(string: list):
                 if string[index] != '(' and not is_float(string[index]):
                     raise NotValidMinusError(f"Error! Attempted of use {string[index]} after Unary Minus")
             elif string[index - 1] == ')' or is_float(string[index - 1]) or (
-                    isinstance(Operands(string[index - 1]), Unary) and not Operands(string[index - 1]).is_left()):
+                    isinstance(operators(string[index - 1]), Unary) and not operators(string[index - 1]).is_left()):
                 string[index] = Decrease()
                 index += 1
                 while string[index] == '-':
@@ -65,7 +61,7 @@ def parse(string: list) -> list:
             else:
                 operator = symb
                 if not isinstance(symb, Operator):
-                    operator = Operands(symb)
+                    operator = operators(symb)
                 while not operator_stack.is_empty() and operator_grater(operator_stack.top(), operator):
                     str_post.append(operator_stack.pop())
                 operator_stack.push(operator)

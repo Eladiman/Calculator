@@ -27,7 +27,7 @@ class Add(Binary):
         return float(operands[0]) + float(operands[1])
 
     def get_order(self):
-        return 1
+        return self.ORDER
 
 
 class Decrease(Binary):
@@ -37,7 +37,7 @@ class Decrease(Binary):
         return operands[0] - operands[1]
 
     def get_order(self):
-        return 1
+        return self.ORDER
 
 
 class Divide(Binary):
@@ -49,7 +49,7 @@ class Divide(Binary):
         return operands[0] / operands[1]
 
     def get_order(self):
-        return 2
+        return self.ORDER
 
 
 class Multiply(Binary):
@@ -59,7 +59,7 @@ class Multiply(Binary):
         return operands[0] * operands[1]
 
     def get_order(self):
-        return 2
+        return self.ORDER
 
 
 class UnaryMinus(Unary):
@@ -69,7 +69,7 @@ class UnaryMinus(Unary):
         return - operands[0]
 
     def get_order(self):
-        return 2.5
+        return self.ORDER
 
     def is_left(self):
         return True
@@ -93,7 +93,7 @@ class Power(Binary):
         return pow(operand1, operand2)
 
     def get_order(self):
-        return 3
+        return self.ORDER
 
 
 class Modulo(Binary):
@@ -106,7 +106,7 @@ class Modulo(Binary):
         return operands[0] % operands[1]
 
     def get_order(self):
-        return 3
+        return self.ORDER
 
 
 class Maximum(Binary):
@@ -116,7 +116,7 @@ class Maximum(Binary):
         return max(operands)
 
     def get_order(self):
-        return 4
+        return self.ORDER
 
 
 class Minimum(Binary):
@@ -126,7 +126,7 @@ class Minimum(Binary):
         return min(operands)
 
     def get_order(self):
-        return 4
+        return self.ORDER
 
 
 class Avg(Binary):
@@ -136,7 +136,7 @@ class Avg(Binary):
         return (operands[0] + operands[1]) / 2
 
     def get_order(self):
-        return 5
+        return self.ORDER
 
 
 class Tilde(Unary):
@@ -149,7 +149,7 @@ class Tilde(Unary):
         return True
 
     def get_order(self):
-        return 6
+        return self.ORDER
 
 
 class Factorial(Unary):
@@ -177,7 +177,7 @@ class Factorial(Unary):
         return False
 
     def get_order(self):
-        return 6
+        return self.ORDER
 
 
 class DigitSum(Unary):
@@ -198,7 +198,7 @@ class DigitSum(Unary):
         return False
 
     def get_order(self):
-        return 6
+        return self.ORDER
 
 
 class SignMinus(Unary):
@@ -211,4 +211,4 @@ class SignMinus(Unary):
         return True
 
     def get_order(self):
-        return 69
+        return self.ORDER

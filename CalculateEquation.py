@@ -1,6 +1,6 @@
-from Stack import Stack
 from Evaluator import evaluate
-from Parser import *
+from validation import *
+from Parser import minus_parse, parse
 
 
 def calculate_equation(string: str):
@@ -13,6 +13,7 @@ def calculate_equation(string: str):
     right_unary_check(final_expression)
     final_expression = minus_parse(final_expression)
     final_expression = parse(final_expression)
+
     result = evaluate(final_expression)
     try:
         result = float(result)
